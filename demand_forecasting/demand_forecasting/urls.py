@@ -19,9 +19,10 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from webApp import views
+from webApp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.homepage, name='home'),
+    # path('',views.homepage, name='home'),
+    path('demand/',DFView.as_view(),name='demand')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
