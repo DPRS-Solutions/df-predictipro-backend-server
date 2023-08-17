@@ -24,5 +24,5 @@ from webApp.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('',views.homepage, name='home'),
-    path('',DFView.as_view(),name='')
+    path('',DFView.as_view(),name=''),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
