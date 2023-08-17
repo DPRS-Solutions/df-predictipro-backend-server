@@ -48,7 +48,7 @@ def finder(request,data):
 
 	preds = loaded_model.predict([lst])
 	print(preds)
-	return preds[0]
+	return {"order":preds[0]}
 
 class DFView(APIView):
 	serializer_class = DFSerializer
