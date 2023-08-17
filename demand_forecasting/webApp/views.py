@@ -7,7 +7,6 @@ from . serializer import *
 import pickle
 # Create your views here.
 
-
 def finder(request,data):
 	queryset = DF_Model.objects.filter(warehouse=data['warehouse'], product_category=data['product_category'], date=data['date'])
 	processed_data = [{"warehouse": obj.warehouse,
@@ -49,20 +48,10 @@ def finder(request,data):
 
 	preds = loaded_model.predict([lst])
 	print(preds)
-	
-	return render(request,'webApp/result.html',{"order":preds[0]})
-
-
-
-
-
-
-
+	return preds[0]
 
 class DFView(APIView):
-	
 	serializer_class = DFSerializer
-
 	def get(self, request):
 		data = [ {"warehouse": data.warehouse,
 	    		  "product_category": data.product_category,
@@ -74,6 +63,5 @@ class DFView(APIView):
 		serializer = DFSerializer(data=request.data)
 		if serializer.is_valid(raise_exception=True):
 			serializer.save()
-
-			finder(request,serializer.validated_data)
-			return Response(serializer.data)	
+			result = finder(request,serializer._validated_data)
+			return Response(result)	
